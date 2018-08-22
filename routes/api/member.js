@@ -65,7 +65,7 @@ router.post(
   }
 );
 
-// @route   Post api/member/season
+// @route   Post api/member/seasons
 // @desc    Add draft history for member
 // @access  Private
 router.post(
