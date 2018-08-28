@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 import '../../style/SideNav.css';
 
@@ -12,9 +13,33 @@ class SideNav extends Component {
     return (
       <nav className={sideNavClasses}>
         <ul>
-          <li>Keeper Calculator</li>
-          <li>Draft History</li>
-          <li>Pre-draft Rankings</li>
+          <li className="nav-item">
+            <Link
+              className="nav-link"
+              to="/dashboard"
+              onClick={this.sideNavToggleClickHandler}
+            >
+              Keeper Calculator
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link
+              className="nav-link"
+              to="/dashboard"
+              onClick={this.sideNavToggleClickHandler}
+            >
+              Draft History
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link
+              className="nav-link"
+              to="/dashboard"
+              onClick={this.sideNavToggleClickHandler}
+            >
+              Pre-draft Rankings
+            </Link>
+          </li>
         </ul>
       </nav>
     );
