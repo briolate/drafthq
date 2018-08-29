@@ -3,25 +3,25 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const passport = require('passport');
 
-// Load member validation
-const validateMemberInput = require('../../validation/member');
+// Load profile validation
+const validateProfileInput = require('../../validation/profile');
 
 // Load User model
-const Member = require('../../models/Member');
+const Profile = require('../../models/Profile');
 
-// @route   GET api/member/test
-// @desc    Tests member route
+// @route   GET api/profile/test
+// @desc    Tests profile route
 // @access  Public
-router.get('/test', (req, res) => res.json({ msg: 'Member works' }));
+router.get('/test', (req, res) => res.json({ msg: 'Profile works' }));
 
-// @route   POST api/member
-// @desc    Create member
+// @route   POST api/profile
+// @desc    Create profile
 // @access  Private
 router.post(
   '/',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-    const { errors, isValid } = validateMemberInput(req.body);
+    const { errors, isValid } = validateProfileInput(req.body);
 
     // Check Validation
     if (!isValid) {
@@ -29,50 +29,50 @@ router.post(
       return res.status(400).json(errors);
     }
 
-    const memberFields = {};
+    const profileFields = {};
 
-    memberFields.user = req.user.id;
+    profileFields.user = req.user.id;
 
     if (req.body.handle) {
-      memberFields.handle = req.body.handle;
+      profileFields.handle = req.body.handle;
     } else {
-      memberFields.handle = '';
+      profileFields.handle = '';
     }
 
-    Member.findOne({ user: req.user.id }).then(member => {
-      if (member) {
+    Profile.findOne({ user: req.user.id }).then(profile => {
+      if (profile) {
         //Update
-        Member.findOneAndUpdate(
+        Profile.findOneAndUpdate(
           { user: req.user.id },
-          { $set: memberFields },
+          { $set: profileFields },
           { new: true }
-        ).then(member => res.json(member));
+        ).then(profile => res.json(profile));
       } else {
         // Create
 
         // Check if handle exists
-        Member.findOne({ handle: memberFields.handle }).then(member => {
-          if (member) {
-            errors.handle = 'This member already exists';
+        Profile.findOne({ handle: profileFields.handle }).then(profile => {
+          if (profile) {
+            errors.handle = 'This profile already exists';
             res.status(400).json(errors);
           }
 
-          // Save Member
-          new Member(memberFields).save().then(member => res.json(member));
+          // Save Profile
+          new Profile(profileFields).save().then(profile => res.json(profile));
         });
       }
     });
   }
 );
 
-// @route   Post api/member/seasons
-// @desc    Add draft history for member
+// @route   Post api/profile/seasons
+// @desc    Add draft history for profile
 // @access  Private
 router.post(
   '/seasons',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-    const { errors, isValid } = validateMemberInput(req.body);
+    const { errors, isValid } = validateProfileInput(req.body);
 
     // Check Validation
     if (!isValid) {
@@ -80,7 +80,7 @@ router.post(
       return res.status(400).json(errors);
     }
 
-    Member.findOne({ user: req.user.id }).then(member => {
+    Profile.findOne({ user: req.user.id }).then(profile => {
       const newSeason = {
         year: req.body.year,
         qb: req.body.qb,
@@ -94,9 +94,9 @@ router.post(
       };
 
       // Add to seasons array
-      member.seasons.unshift(newSeason);
+      profile.seasons.unshift(newSeason);
 
-      member.save().then(member => res.json(member));
+      profile.save().then(profile => res.json(profile));
     });
   }
 );

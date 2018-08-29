@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 // const uniqueValidator = require('mongoose-unique-validator');
 
 // Create Schema
-const MemberSchema = new Schema({
+const ProfileSchema = new Schema({
   user: {
     type: Schema.Types.ObjectId,
     ref: 'users'
@@ -48,6 +48,6 @@ const MemberSchema = new Schema({
   ]
 });
 
-// MemberSchema.plugin(uniqueValidator);
+// ProfileSchema.plugin(uniqueValidator);
 
-module.exports = Member = mongoose.model('member', MemberSchema);
+module.exports = Profile = mongoose.model('profile', ProfileSchema);

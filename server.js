@@ -6,7 +6,7 @@ const passport = require('passport');
 
 const users = require('./routes/api/users');
 const rankings = require('./routes/api/rankings');
-const member = require('./routes/api/member');
+const profile = require('./routes/api/profile');
 
 const app = express();
 
@@ -35,7 +35,7 @@ require('./config/passport')(passport);
 // Use Routes
 app.use('/api/users', users);
 app.use('/api/rankings', rankings);
-app.use('/api/member', member);
+app.use('/api/profile', profile);
 
 // // Serve static assets if in production
 // if (process.env.NODE_ENV === 'production') {
