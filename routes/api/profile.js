@@ -6,8 +6,10 @@ const passport = require('passport');
 // Load profile validation
 const validateProfileInput = require('../../validation/profile');
 
-// Load User model
+// Load Profile Model
 const Profile = require('../../models/Profile');
+// Load User Model
+const User = require('../../models/User');
 
 // @route   GET api/profile/test
 // @desc    Tests profile route
@@ -29,6 +31,7 @@ router.post(
       return res.status(400).json(errors);
     }
 
+    // Get fields
     const profileFields = {};
 
     profileFields.user = req.user.id;
@@ -37,6 +40,18 @@ router.post(
       profileFields.handle = req.body.handle;
     } else {
       profileFields.handle = '';
+    }
+    if (typeof req.body.seasons !== 'undefined') {
+      profileFields.seasons = req.body.seasons.split(',');
+    }
+    if (typeof req.body.playoffs !== 'undefined') {
+      profileFields.playoffs = req.body.playoffs.split(',');
+    }
+    if (typeof req.body.championships !== 'undefined') {
+      profileFields.championships = req.body.championships.split(',');
+    }
+    if (typeof req.body.lastplace !== 'undefined') {
+      profileFields.lastplace = req.body.lastplace.split(',');
     }
 
     Profile.findOne({ user: req.user.id }).then(profile => {
@@ -53,7 +68,7 @@ router.post(
         // Check if handle exists
         Profile.findOne({ handle: profileFields.handle }).then(profile => {
           if (profile) {
-            errors.handle = 'This profile already exists';
+            errors.handle = 'That profile already exists';
             res.status(400).json(errors);
           }
 

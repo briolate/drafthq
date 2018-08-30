@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import TextFieldGroup from '../common/TextFieldGroup';
-import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
-import SelectListGroup from '../common/SelectListGroup';
+import { createProfile } from '../../actions/profileActions';
 
 class CreateProfile extends Component {
   constructor(props) {
@@ -13,6 +13,7 @@ class CreateProfile extends Component {
       seasons: '',
       playoffs: '',
       championships: '',
+      lastplace: '',
       errors: {}
     };
 
@@ -20,14 +21,28 @@ class CreateProfile extends Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
-  onChange(e) {
-    this.setState({ [e.target.name]: e.target.value });
+  componentWillReceieveProps(nextProps) {
+    if (nextProps.errors) {
+      this.setState({ errors: nextProps.errors });
+    }
   }
 
   onSubmit(e) {
     e.preventDefault();
 
-    console.log('Submit');
+    const profileData = {
+      handle: this.state.handle,
+      seasons: this.state.seasons,
+      playoffs: this.state.playoffs,
+      championships: this.state.championships,
+      lastplace: this.state.lastplace
+    };
+
+    this.props.createProfile(profileData, this.props.history);
+  }
+
+  onChange(e) {
+    this.setState({ [e.target.name]: e.target.value });
   }
 
   render() {
@@ -50,6 +65,43 @@ class CreateProfile extends Component {
                   error={errors.handle}
                   info="A unique handle for your profile URL."
                 />
+                <TextFieldGroup
+                  placeholder="Seasons"
+                  name="seasons"
+                  value={this.state.seasons}
+                  onChange={this.onChange}
+                  error={errors.seasons}
+                  info="Please use commas to separate if adding multiple years."
+                />
+                <TextFieldGroup
+                  placeholder="Playoff appearances"
+                  name="playoffs"
+                  value={this.state.playoffs}
+                  onChange={this.onChange}
+                  error={errors.playoffs}
+                  info="Please use commas to separate if adding multiple years."
+                />
+                <TextFieldGroup
+                  placeholder="Championships"
+                  name="championships"
+                  value={this.state.championships}
+                  onChange={this.onChange}
+                  error={errors.championships}
+                  info="Please use commas to separate if adding multiple years."
+                />
+                <TextFieldGroup
+                  placeholder="Last place finishes"
+                  name="lastplace"
+                  value={this.state.lastplace}
+                  onChange={this.onChange}
+                  error={errors.lastplace}
+                  info="Please use commas to separate if adding multiple years."
+                />
+                <input
+                  type="submit"
+                  value="Submit"
+                  className="btn btn-info btn-block mt-4 "
+                />
               </form>
             </div>
           </div>
@@ -69,4 +121,7 @@ const mapStateToProps = state => ({
   errors: state.errors
 });
 
-export default connect(mapStateToProps)(CreateProfile);
+export default connect(
+  mapStateToProps,
+  { createProfile }
+)(withRouter(CreateProfile));
