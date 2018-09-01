@@ -13,7 +13,7 @@ const TextAreaFieldGroup = ({
   return (
     <div className="form-group">
       <textarea
-        className={classnames('form-control form-control-lg', {
+        className={classnames('form-control', 'form-control-lg', {
           'is-invalid': error
         })}
         placeholder={placeholder}
@@ -31,8 +31,8 @@ TextAreaFieldGroup.propTypes = {
   name: PropTypes.string.isRequired,
   placeholder: PropTypes.string,
   value: PropTypes.string.isRequired,
-  error: PropTypes.string,
   info: PropTypes.string,
+  error: PropTypes.string,
   onChange: PropTypes.func.isRequired
 };
 
