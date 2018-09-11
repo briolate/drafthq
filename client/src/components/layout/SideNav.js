@@ -16,7 +16,7 @@ class SideNav extends Component {
           <li className="nav-item">
             <Link
               className="nav-link"
-              to="/dashboard"
+              to="/calculator"
               onClick={this.sideNavToggleClickHandler}
             >
               Keeper Calculator
