@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import TextFieldGroup from '../../common/TextFieldGroup';
 
-import draftValues from './values.js';
+import valueChart from './values';
 
 import Player from '../../../img/player.png';
 
@@ -11,11 +10,31 @@ class DraftCalculator extends Component {
     this.state = {
       adp: '',
       picklost: '',
-      tkv: ''
+      tkv: '',
+      valueChart
     };
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+  }
+
+  updateValues() {
+    const newAdp = this.state.adp;
+    if (this.state.adp === this.state.valueChart[1].num) {
+      this.newAdp = this.state.valueChart[1].value;
+    }
+    this.setState({
+      adp: newAdp
+    });
+    console.log(newAdp);
+    console.log(this.state.adp);
+    console.log(this.state.valueChart[1].num);
+  }
+
+  calculateValue() {
+    this.setState({
+      tkv: this.state.adp - this.state.picklost
+    });
   }
 
   onSubmit(e) {
@@ -23,10 +42,16 @@ class DraftCalculator extends Component {
 
     const calculatorData = {
       adp: this.state.adp,
-      picklost: this.state.picklost
+      picklost: this.state.picklost,
+      tkv: this.state.tkv
     };
 
-    this.props.calculateValue(calculatorData);
+    this.updateValues();
+    this.calculateValue(calculatorData);
+    this.setState({
+      adp: '',
+      picklost: ''
+    });
   }
 
   onChange(e) {
@@ -65,14 +90,14 @@ class DraftCalculator extends Component {
                 className="pb-3"
               />
               <form onSubmit={this.onSubmit}>
-                <TextFieldGroup
+                <input
                   placeholder="ADP"
                   name="adp"
                   value={this.state.adp}
                   onChange={this.onChange}
                   info="Average draft position"
                 />
-                <TextFieldGroup
+                <input
                   placeholder="Pick Lost"
                   name="picklost"
                   value={this.state.picklost}
@@ -85,6 +110,9 @@ class DraftCalculator extends Component {
                   className="btn btn-info btn-block mt-4 "
                 />
               </form>
+              <div>
+                <p>Your keeper's value is {this.state.tkv}</p>
+              </div>
             </div>
           </div>
         </div>
