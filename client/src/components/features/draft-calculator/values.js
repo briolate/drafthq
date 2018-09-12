@@ -1,4 +1,5 @@
-export const draftValues = [
+const valueChart = [
+  { num: 0, value: 0 },
   { num: 1, value: 3000 },
   { num: 2, value: 2600 },
   { num: 3, value: 2200 },
@@ -224,3 +225,5 @@ export const draftValues = [
   { num: 223, value: 2.3 },
   { num: 224, value: 2 }
 ];
+
+export default valueChart;
