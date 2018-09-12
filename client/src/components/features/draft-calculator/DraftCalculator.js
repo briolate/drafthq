@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import _ from 'lodash';
 
 import valueChart from './values';
 
@@ -18,23 +19,18 @@ class DraftCalculator extends Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
-  updateValues() {
-    const newAdp = this.state.adp;
-    if (this.state.adp === this.state.valueChart[1].num) {
-      this.newAdp = this.state.valueChart[1].value;
-    }
-    this.setState({
-      adp: newAdp
-    });
-    console.log(newAdp);
-    console.log(this.state.adp);
-    console.log(this.state.valueChart[1].num);
-  }
+  updateValues() {}
 
   calculateValue() {
     this.setState({
-      tkv: this.state.adp - this.state.picklost
+      tkv: this.state.adp - this.state.picklost,
+      adp: '',
+      picklost: ''
     });
+  }
+
+  onChange(e) {
+    this.setState({ [e.target.name]: e.target.value });
   }
 
   onSubmit(e) {
@@ -48,14 +44,6 @@ class DraftCalculator extends Component {
 
     this.updateValues();
     this.calculateValue(calculatorData);
-    this.setState({
-      adp: '',
-      picklost: ''
-    });
-  }
-
-  onChange(e) {
-    this.setState({ [e.target.name]: e.target.value });
   }
 
   render() {
