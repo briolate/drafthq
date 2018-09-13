@@ -1,25 +1,39 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
+import classnames from 'classnames';
+import TextFieldGroup from '../../common/TextFieldGroup';
+import calculatorValidation from '../../../validation/calculatorValidation';
 
 import valueChart from './values';
-
 import Player from '../../../img/player.png';
 
-class DraftCalculator extends Component {
+class KeeperCalculator extends Component {
   constructor(props) {
     super(props);
     this.state = {
       adp: '',
       picklost: '',
       tkv: '',
-      valueChart
+      valueChart,
+      errors: {}
     };
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
 
-  updateValues() {}
+  updateValues() {
+    _.mapKeys(valueChart, (value, key) => {
+      if (this.state.adp === key) {
+        this.state.adp = value;
+      }
+      if (this.state.picklost === key) {
+        this.state.picklost = value;
+      }
+    });
+    console.log(this.state.adp);
+    console.log(this.state.picklost);
+  }
 
   calculateValue() {
     this.setState({
@@ -29,24 +43,20 @@ class DraftCalculator extends Component {
     });
   }
 
+  onSubmit(e) {
+    e.preventDefault();
+
+    this.updateValues();
+    this.calculateValue();
+  }
+
   onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
 
-  onSubmit(e) {
-    e.preventDefault();
-
-    const calculatorData = {
-      adp: this.state.adp,
-      picklost: this.state.picklost,
-      tkv: this.state.tkv
-    };
-
-    this.updateValues();
-    this.calculateValue(calculatorData);
-  }
-
   render() {
+    const { errors } = this.state;
+
     return (
       <div className="calculator">
         <div className="container">
@@ -57,7 +67,7 @@ class DraftCalculator extends Component {
                 Calculator to determine the value of your keeper with respect to
                 the draft pick lost for keeping said player.
               </p>
-              <small className="d-block pb-3">
+              <small className="d-block">
                 <p>
                   <b>ADP (Average Draft Position):</b> The player's preseason
                   consensus draft position (or use your own rankings).
@@ -78,18 +88,20 @@ class DraftCalculator extends Component {
                 className="pb-3"
               />
               <form onSubmit={this.onSubmit}>
-                <input
+                <TextFieldGroup
                   placeholder="ADP"
                   name="adp"
                   value={this.state.adp}
                   onChange={this.onChange}
+                  error={errors.adp}
                   info="Average draft position"
                 />
-                <input
+                <TextFieldGroup
                   placeholder="Pick Lost"
                   name="picklost"
                   value={this.state.picklost}
                   onChange={this.onChange}
+                  error={errors.picklost}
                   info="Pick lost for keeping player"
                 />
                 <input
@@ -98,8 +110,20 @@ class DraftCalculator extends Component {
                   className="btn btn-info btn-block mt-4 "
                 />
               </form>
-              <div>
-                <p>Your keeper's value is {this.state.tkv}</p>
+              <div className="mt-4">
+                <p
+                  className={classnames(
+                    { 'alert alert-success': this.state.tkv > 0 },
+                    { 'alert alert-danger': this.state.tkv < 0 },
+                    {
+                      'alert alert-warning':
+                        this.state.tkv === 0 || this.state.tkv === ''
+                    },
+                    'text-center'
+                  )}
+                >
+                  Your keeper's value is {this.state.tkv}
+                </p>
               </div>
             </div>
           </div>
@@ -109,4 +133,4 @@ class DraftCalculator extends Component {
   }
 }
 
-export default DraftCalculator;
+export default KeeperCalculator;
