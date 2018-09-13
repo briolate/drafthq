@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import _ from 'lodash';
 import classnames from 'classnames';
 import TextFieldGroup from '../../common/TextFieldGroup';
-import calculatorValidation from '../../../validation/calculatorValidation';
 
 import valueChart from './values';
 import Player from '../../../img/player.png';
@@ -14,8 +13,7 @@ class KeeperCalculator extends Component {
       adp: '',
       picklost: '',
       tkv: '',
-      valueChart,
-      errors: {}
+      valueChart
     };
 
     this.onChange = this.onChange.bind(this);
@@ -55,8 +53,6 @@ class KeeperCalculator extends Component {
   }
 
   render() {
-    const { errors } = this.state;
-
     return (
       <div className="calculator">
         <div className="container">
@@ -85,7 +81,7 @@ class KeeperCalculator extends Component {
                 src={Player}
                 alt="Player icon"
                 style={{ height: '200px', width: '200px' }}
-                className="pb-3"
+                className="pb-3 m-auto d-block"
               />
               <form onSubmit={this.onSubmit}>
                 <TextFieldGroup
@@ -93,7 +89,6 @@ class KeeperCalculator extends Component {
                   name="adp"
                   value={this.state.adp}
                   onChange={this.onChange}
-                  error={errors.adp}
                   info="Average draft position"
                 />
                 <TextFieldGroup
@@ -101,7 +96,6 @@ class KeeperCalculator extends Component {
                   name="picklost"
                   value={this.state.picklost}
                   onChange={this.onChange}
-                  error={errors.picklost}
                   info="Pick lost for keeping player"
                 />
                 <input
