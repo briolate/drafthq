@@ -18,6 +18,9 @@ import Login from './components/auth/Login';
 import Dashboard from './components/dashboard/Dashboard';
 import CreateProfile from './components/create-profile/CreateProfile';
 import EditProfile from './components/edit-profile/EditProfile';
+import AddDraft from './components/add-draft/AddDraft';
+import Profiles from './components/profiles/Profiles';
+
 import KeeperCalculator from './components/features/draft-calculator/KeeperCalculator';
 
 import './style/Landing.css';
@@ -55,6 +58,7 @@ class App extends Component {
             <div className="container">
               <Route exact path="/register" component={Register} />
               <Route exact path="/login" component={Login} />
+              <Route exact path="/profiles" component={Profiles} />
               <Route exact path="/calculator" component={KeeperCalculator} />
               <Switch>
                 <PrivateRoute exact path="/dashboard" component={Dashboard} />
@@ -72,6 +76,9 @@ class App extends Component {
                   path="/edit-profile"
                   component={EditProfile}
                 />
+              </Switch>
+              <Switch>
+                <PrivateRoute exact path="/add-draft" component={AddDraft} />
               </Switch>
             </div>
             <Footer />

@@ -25,7 +25,7 @@ const ProfileSchema = new Schema({
   lastplace: {
     type: String
   },
-  seasons: [
+  drafts: [
     {
       year: {
         type: Number,
@@ -33,28 +33,42 @@ const ProfileSchema = new Schema({
         // unique: true
       },
       qb: {
-        type: Number
+        type: Number,
+        required: true
       },
       rb1: {
-        type: Number
+        type: Number,
+        required: true
       },
       rb2: {
+        type: Number,
+        required: true
+      },
+      rb3: {
         type: Number
       },
       wr1: {
-        type: Number
+        type: Number,
+        required: true
       },
       wr2: {
+        type: Number,
+        required: true
+      },
+      wr3: {
         type: Number
       },
       te: {
-        type: Number
+        type: Number,
+        required: true
       },
       dst: {
-        type: Number
+        type: Number,
+        required: true
       },
       k: {
-        type: Number
+        type: Number,
+        required: true
       }
     }
   ]

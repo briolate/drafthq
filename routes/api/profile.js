@@ -5,6 +5,7 @@ const passport = require('passport');
 
 // Load profile validation
 const validateProfileInput = require('../../validation/profile');
+const validateDraftsInput = require('../../validation/drafts');
 
 // Load Profile Model
 const Profile = require('../../models/Profile');
@@ -165,14 +166,14 @@ router.post(
   }
 );
 
-// @route   Post api/profile/seasons
-// @desc    Add season to profile
+// @route   Post api/profile/drafts
+// @desc    Add draft to profile
 // @access  Private
 router.post(
-  '/seasons',
+  '/drafts',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-    const { errors, isValid } = validateProfileInput(req.body);
+    const { errors, isValid } = validateDraftsInput(req.body);
 
     // Check Validation
     if (!isValid) {
@@ -181,42 +182,44 @@ router.post(
     }
 
     Profile.findOne({ user: req.user.id }).then(profile => {
-      const newSeason = {
+      const newDraft = {
         year: req.body.year,
         qb: req.body.qb,
         rb1: req.body.rb1,
         rb2: req.body.rb2,
+        rb3: req.body.rb3,
         wr1: req.body.wr1,
         wr2: req.body.wr2,
+        wr3: req.body.wr3,
         te: req.body.te,
         dst: req.body.dst,
         k: req.body.k
       };
 
-      // Add to seasons array
-      profile.seasons.unshift(newSeason);
+      // Add to drafts array
+      profile.drafts.unshift(newDraft);
 
       profile.save().then(profile => res.json(profile));
     });
   }
 );
 
-// @route   DELETE api/profile/seasons/:season_id
-// @desc    Delete season from profile
+// @route   DELETE api/profile/drafts/:draft_id
+// @desc    Delete draft from profile
 // @access  Private
 router.delete(
-  '/seasons/:season_id',
+  '/drafts/:draft_id',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
     Profile.findOne({ user: req.user.id })
       .then(profile => {
         // Get remove index
-        const removeIndex = profile.seasons
+        const removeIndex = profile.drafts
           .map(item => item.id)
           .indexOf(req.params.exp_id);
 
         // Splice out of array
-        profile.seasons.splice(removeIndex, 1);
+        profile.drafts.splice(removeIndex, 1);
 
         //Save
         profile.save().then(profile => res.json(profile));

@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { getCurrentProfile, deleteAccount } from '../../actions/profileActions';
 import Spinner from '../common/Spinner.js';
 import ProfileActions from './ProfileActions';
+import Drafts from './Drafts';
 
 class Dashboard extends Component {
   componentDidMount() {
@@ -32,6 +33,7 @@ class Dashboard extends Component {
               Welcome <Link to={`/profile/${profile.handle}`}>{user.name}</Link>
             </p>
             <ProfileActions />
+            <Drafts drafts={profile.drafts} />
             <div style={{ marginBottom: '60px' }} />
             <button
               onClick={this.onDeleteClick.bind(this)}
