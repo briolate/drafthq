@@ -14,16 +14,16 @@ const ProfileSchema = new Schema({
     max: 40
   },
   seasons: {
-    type: String
+    type: [String]
   },
   playoffs: {
-    type: String
+    type: [String]
   },
   championships: {
-    type: String
+    type: [String]
   },
   lastplace: {
-    type: String
+    type: [String]
   },
   drafts: [
     {

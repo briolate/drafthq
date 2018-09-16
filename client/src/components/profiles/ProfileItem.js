@@ -20,6 +20,16 @@ class ProfileItem extends Component {
             <Link to={`/profile${profile.handle}`} className="btn btn-info">
               View Profile
             </Link>
+          </div>
+          <div className="col-md-4 d-none d-md-block">
+            <ul className="list-group">
+              {profile.playoffs.map((playoffs, index) => (
+                <li key={index} className="list-group-item">
+                  <i className="fa fa-th-large pr-1" />
+                  {playoffs}
+                </li>
+              ))}
+            </ul>
             <ul className="list-group">
               {profile.championships.map((championship, index) => (
                 <li key={index} className="list-group-item">

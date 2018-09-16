@@ -34,6 +34,13 @@ class CreateProfile extends Component {
     if (nextProps.profile.profile) {
       const profile = nextProps.profile.profile;
 
+      // Bring arrays back to CSV (comma separated value)
+      const seasonsCSV = profile.seasons.join(',');
+      const playoffsCSV = profile.playoffs.join(',');
+      const championshipsCSV = profile.championships.join(',');
+      const lastplaceCSV = profile.lastplace.join(',');
+
+      // If profile field doesn't exist, make empty string
       profile.seasons = !isEmpty(profile.seasons) ? profile.seasons : '';
       profile.playoffs = !isEmpty(profile.playoffs) ? profile.playoffs : '';
       profile.championships = !isEmpty(profile.championships)
@@ -44,10 +51,10 @@ class CreateProfile extends Component {
       // Set component fields state
       this.setState({
         handle: profile.handle,
-        seasons: profile.seasons,
-        playoffs: profile.playoffs,
-        championships: profile.championships,
-        lastplace: profile.lastplace
+        seasons: seasonsCSV,
+        playoffs: playoffsCSV,
+        championships: championshipsCSV,
+        lastplace: lastplaceCSV
       });
     }
   }
