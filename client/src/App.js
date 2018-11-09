@@ -22,6 +22,8 @@ import AddDraft from './components/add-draft/AddDraft';
 import Profiles from './components/profiles/Profiles';
 
 import KeeperCalculator from './components/features/draft-calculator/KeeperCalculator';
+import DraftHistory from './components/features/draft-history/DraftHistory';
+import DraftRankings from './components/features/draft-rankings/DraftRankings';
 
 import './style/Landing.css';
 import './style/SideNav.css';
@@ -60,6 +62,8 @@ class App extends Component {
               <Route exact path="/login" component={Login} />
               <Route exact path="/profiles" component={Profiles} />
               <Route exact path="/calculator" component={KeeperCalculator} />
+              <Route exact path="/drafthistory" component={DraftHistory} />
+              <Route exact path="/rankings" component={DraftRankings} />
               <Switch>
                 <PrivateRoute exact path="/dashboard" component={Dashboard} />
               </Switch>

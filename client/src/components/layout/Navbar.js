@@ -77,7 +77,10 @@ class Navbar extends Component {
     return (
       <div>
         {backdrop}
-        <SideNav show={this.state.sideNavOpen} />
+        <SideNav
+          toggleSidenav={this.sideNavToggleClickHandler.bind(this)}
+          show={this.state.sideNavOpen}
+        />
         <nav className="navbar navbar-expand-sm navbar-dark bg-dark mb-4">
           <div className="container">
             <div className="logo-toggle pr-3">
