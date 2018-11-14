@@ -17,7 +17,7 @@ class SideNav extends Component {
               to="/calculator"
               onClick={this.props.toggleSidenav}
             >
-              Keeper Calculator
+              <i className="fas fa-calculator" /> Keeper Calculator
             </Link>
           </li>
           <li className="nav-item">
@@ -26,7 +26,7 @@ class SideNav extends Component {
               to="/drafthistory"
               onClick={this.props.toggleSidenav}
             >
-              Draft History
+              <i className="fas fa-history" /> Draft History
             </Link>
           </li>
           <li className="nav-item">
@@ -35,7 +35,7 @@ class SideNav extends Component {
               to="/rankings"
               onClick={this.props.toggleSidenav}
             >
-              Pre-draft Rankings
+              <i className="fas fa-list-ol" /> Pre-draft Rankings
             </Link>
           </li>
         </ul>

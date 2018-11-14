@@ -38,6 +38,13 @@ class ProfileItem extends Component {
                 </li>
               ))}
             </ul>
+            <ul className="list-group">
+              {profile.lastplace.map((lastplace, index) => (
+                <li key={index} className="list-group-item">
+                  Last place: {lastplace}
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </div>

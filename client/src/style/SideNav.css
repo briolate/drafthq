@@ -28,3 +28,48 @@
   list-style: none;
   margin-top: 25px;
 }
+
+@keyframes bounce {
+  0%,
+  20%,
+  60%,
+  100% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+
+  40% {
+    -webkit-transform: translateX(10px);
+    transform: translateX(10px);
+  }
+
+  80% {
+    -webkit-transform: translateX(5px);
+    transform: translateX(5px);
+  }
+}
+
+.logo-toggle:hover {
+  animation: bounce 1s;
+}
+
+.side-nav-links {
+  padding-inline-start: 0px;
+}
+
+.side-nav-links .nav-link {
+  color: white;
+}
+
+.side-nav-links .nav-item {
+  margin-top: 15px;
+}
+
+.side-nav-links .nav-item:hover {
+  background-color: #454c53;
+  border-left: solid #138496 4px;
+}
+
+.side-nav-links .nav-link:hover {
+  color: #138496;
+}
