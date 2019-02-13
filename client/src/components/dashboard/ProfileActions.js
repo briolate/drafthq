@@ -11,6 +11,10 @@ const ProfileActions = () => {
         <i className="fas fa-calendar text-info mr-2" />
         Add Draft
       </Link>
+      <Link to="/add-member" className="btn btn-light">
+        <i className="fas fa-plus text-info mr-2" />
+        Add Member
+      </Link>
     </div>
   );
 };

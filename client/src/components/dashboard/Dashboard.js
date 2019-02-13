@@ -6,6 +6,7 @@ import { getCurrentProfile, deleteAccount } from '../../actions/profileActions';
 import Spinner from '../common/Spinner.js';
 import ProfileActions from './ProfileActions';
 import Drafts from './Drafts';
+import Members from '../members/Members';
 
 class Dashboard extends Component {
   componentDidMount() {
@@ -34,6 +35,7 @@ class Dashboard extends Component {
             </p>
             <ProfileActions />
             <Drafts drafts={profile.drafts} />
+            <Members members={profile.members} />
             <div style={{ marginBottom: '60px' }} />
             <button
               onClick={this.onDeleteClick.bind(this)}

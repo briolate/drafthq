@@ -19,7 +19,9 @@ import Dashboard from './components/dashboard/Dashboard';
 import CreateProfile from './components/create-profile/CreateProfile';
 import EditProfile from './components/edit-profile/EditProfile';
 import AddDraft from './components/add-draft/AddDraft';
+import AddMember from './components/add-member/AddMember';
 import Profiles from './components/profiles/Profiles';
+import Members from './components/members/Members';
 
 import KeeperCalculator from './components/features/draft-calculator/KeeperCalculator';
 import DraftHistory from './components/features/draft-history/DraftHistory';
@@ -62,7 +64,7 @@ class App extends Component {
               <Route exact path="/login" component={Login} />
               <Route exact path="/profiles" component={Profiles} />
               <Route exact path="/calculator" component={KeeperCalculator} />
-              <Route exact path="/drafthistory" component={DraftHistory} />
+              <Route exact path="/draft-history" component={DraftHistory} />
               <Route exact path="/rankings" component={DraftRankings} />
               <Switch>
                 <PrivateRoute exact path="/dashboard" component={Dashboard} />
@@ -83,6 +85,12 @@ class App extends Component {
               </Switch>
               <Switch>
                 <PrivateRoute exact path="/add-draft" component={AddDraft} />
+              </Switch>
+              <Switch>
+                <PrivateRoute exact path="/add-member" component={AddMember} />
+              </Switch>
+              <Switch>
+                <PrivateRoute exact path="/members" component={Members} />
               </Switch>
             </div>
             <Footer />

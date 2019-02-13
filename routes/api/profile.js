@@ -136,8 +136,8 @@ router.post(
     if (typeof req.body.championships !== 'undefined') {
       profileFields.championships = req.body.championships.split(',');
     }
-    if (typeof req.body.lastplace !== 'undefined') {
-      profileFields.lastplace = req.body.lastplace.split(',');
+    if (typeof req.body.lastplaces !== 'undefined') {
+      profileFields.lastplaces = req.body.lastplaces.split(',');
     }
 
     Profile.findOne({ user: req.user.id }).then(profile => {
@@ -220,6 +220,75 @@ router.delete(
 
         // Splice out of array
         profile.drafts.splice(removeIndex, 1);
+
+        //Save
+        profile.save().then(profile => res.json(profile));
+      })
+      .catch(err => res.status(404).json(err));
+  }
+);
+
+// @route   Post api/profile/members
+// @desc    Add member to profile
+// @access  Private
+router.post(
+  '/members',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    const { errors, isValid } = validateProfileInput(req.body);
+
+    // Check Validation
+    if (!isValid) {
+      // Return any errors with 400 status
+      return res.status(400).json(errors);
+    }
+
+    Profile.findOne({ user: req.user.id }).then(profile => {
+      const newMember = {
+        handle: req.body.handle,
+        seasons: req.body.seasons,
+        playoffs: req.body.playoffs,
+        championships: req.body.champioships,
+        lastplaces: req.body.lastplaces,
+        drafts: {
+          year: req.body.year,
+          qb: req.body.qb,
+          rb1: req.body.rb1,
+          rb2: req.body.rb2,
+          rb3: req.body.rb3,
+          wr1: req.body.wr1,
+          wr2: req.body.wr2,
+          wr3: req.body.wr3,
+          te: req.body.te,
+          dst: req.body.dst,
+          k: req.body.k
+        }
+      };
+
+      // Add to members array
+      profile.members.unshift(newMember);
+
+      profile.save().then(profile => res.json(profile));
+    });
+  }
+);
+
+// @route   DELETE api/profile/members/:member_id
+// @desc    Delete member from profile
+// @access  Private
+router.delete(
+  '/members/:member_id',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    Profile.findOne({ user: req.user.id })
+      .then(profile => {
+        // Get remove index
+        const removeIndex = profile.members
+          .map(item => item.id)
+          .indexOf(req.params.exp_id);
+
+        // Splice out of array
+        profile.members.splice(removeIndex, 1);
 
         //Save
         profile.save().then(profile => res.json(profile));

@@ -8,7 +8,7 @@ module.exports = function validateProfileInput(data) {
   data.seasons = !isEmpty(data.seasons) ? data.seasons : '';
   data.playoffs = !isEmpty(data.playoffs) ? data.playoffs : '';
   data.championships = !isEmpty(data.championships) ? data.championships : '';
-  data.lastplace = !isEmpty(data.lastplace) ? data.lastplace : '';
+  data.lastplace = !isEmpty(data.lastplaces) ? data.lastplaces : '';
 
   if (!Validator.isLength(data.handle, { min: 2, max: 40 })) {
     errors.handle = 'Handle needs to be more than 2 characters';

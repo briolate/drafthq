@@ -23,10 +23,10 @@ class ProfileItem extends Component {
           </div>
           <div className="col-md-4 d-none d-md-block">
             <ul className="list-group">
-              {profile.playoffs.map((playoffs, index) => (
+              {profile.playoffs.map((playoff, index) => (
                 <li key={index} className="list-group-item">
                   <i className="fa fa-th-large pr-1" />
-                  {playoffs}
+                  {playoff}
                 </li>
               ))}
             </ul>
@@ -39,9 +39,9 @@ class ProfileItem extends Component {
               ))}
             </ul>
             <ul className="list-group">
-              {profile.lastplace.map((lastplace, index) => (
+              {profile.lastplaces.map((lastplace, index) => (
                 <li key={index} className="list-group-item">
-                  Last place: {lastplace}
+                  <strong>L</strong> {lastplace}
                 </li>
               ))}
             </ul>

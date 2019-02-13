@@ -14,7 +14,7 @@ class CreateProfile extends Component {
       seasons: '',
       playoffs: '',
       championships: '',
-      lastplace: '',
+      lastplaces: '',
       errors: {}
     };
 
@@ -38,7 +38,7 @@ class CreateProfile extends Component {
       const seasonsCSV = profile.seasons.join(',');
       const playoffsCSV = profile.playoffs.join(',');
       const championshipsCSV = profile.championships.join(',');
-      const lastplaceCSV = profile.lastplace.join(',');
+      const lastplacesCSV = profile.lastplaces.join(',');
 
       // If profile field doesn't exist, make empty string
       profile.seasons = !isEmpty(profile.seasons) ? profile.seasons : '';
@@ -46,7 +46,9 @@ class CreateProfile extends Component {
       profile.championships = !isEmpty(profile.championships)
         ? profile.championships
         : '';
-      profile.lastplace = !isEmpty(profile.lastplace) ? profile.lastplace : '';
+      profile.lastplaces = !isEmpty(profile.lastplaces)
+        ? profile.lastplaces
+        : '';
 
       // Set component fields state
       this.setState({
@@ -54,7 +56,7 @@ class CreateProfile extends Component {
         seasons: seasonsCSV,
         playoffs: playoffsCSV,
         championships: championshipsCSV,
-        lastplace: lastplaceCSV
+        lastplaces: lastplacesCSV
       });
     }
   }
@@ -67,7 +69,7 @@ class CreateProfile extends Component {
       seasons: this.state.seasons,
       playoffs: this.state.playoffs,
       championships: this.state.championships,
-      lastplace: this.state.lastplace
+      lastplaces: this.state.lastplaces
     };
 
     this.props.createProfile(profileData, this.props.history);
@@ -125,10 +127,10 @@ class CreateProfile extends Component {
                 />
                 <TextFieldGroup
                   placeholder="Last place finishes"
-                  name="lastplace"
-                  value={this.state.lastplace}
+                  name="lastplaces"
+                  value={this.state.lastplaces}
                   onChange={this.onChange}
-                  error={errors.lastplace}
+                  error={errors.lastplaces}
                   info="Please use commas to separate if adding multiple years."
                 />
                 <input

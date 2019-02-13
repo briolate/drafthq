@@ -75,7 +75,7 @@ class Navbar extends Component {
     );
 
     return (
-      <div>
+      <React.Fragment>
         {backdrop}
         <SideNav
           toggleSidenav={this.sideNavToggleClickHandler.bind(this)}
@@ -108,6 +108,12 @@ class Navbar extends Component {
                 <li className="nav-item">
                   <Link className="nav-link" to="/profiles">
                     {' '}
+                    Profiles
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/members">
+                    {' '}
                     Members
                   </Link>
                 </li>
@@ -116,7 +122,7 @@ class Navbar extends Component {
             </div>
           </div>
         </nav>
-      </div>
+      </React.Fragment>
     );
   }
 }

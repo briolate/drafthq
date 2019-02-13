@@ -72,6 +72,37 @@ export const deleteDraft = id => dispatch => {
     );
 };
 
+// Add member
+export const addMember = (memberData, history) => dispatch => {
+  axios
+    .post('/api/profile/members', memberData)
+    .then(res => history.push('/dashboard'))
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    );
+};
+
+// Delete member
+export const deleteMember = id => dispatch => {
+  axios
+    .delete(`/api/profile/members/${id}`)
+    .then(res =>
+      dispatch({
+        type: GET_PROFILE,
+        payload: res.data
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    );
+};
+
 // Get all profiles
 export const getProfiles = id => dispatch => {
   dispatch(setProfileLoading());

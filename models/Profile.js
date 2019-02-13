@@ -22,7 +22,7 @@ const ProfileSchema = new Schema({
   championships: {
     type: [String]
   },
-  lastplace: {
+  lastplaces: {
     type: [String]
   },
   drafts: [
@@ -70,6 +70,74 @@ const ProfileSchema = new Schema({
         type: Number,
         required: true
       }
+    }
+  ],
+  members: [
+    {
+      handle: {
+        type: String,
+        required: true,
+        max: 40
+      },
+      seasons: {
+        type: [String]
+      },
+      playoffs: {
+        type: [String]
+      },
+      championships: {
+        type: [String]
+      },
+      lastplaces: {
+        type: [String]
+      }
+      // drafts: [
+      //   {
+      //     year: {
+      //       type: Number,
+      //       required: true
+      //       // unique: true
+      //     },
+      //     qb: {
+      //       type: Number,
+      //       required: true
+      //     },
+      //     rb1: {
+      //       type: Number,
+      //       required: true
+      //     },
+      //     rb2: {
+      //       type: Number,
+      //       required: true
+      //     },
+      //     rb3: {
+      //       type: Number
+      //     },
+      //     wr1: {
+      //       type: Number,
+      //       required: true
+      //     },
+      //     wr2: {
+      //       type: Number,
+      //       required: true
+      //     },
+      //     wr3: {
+      //       type: Number
+      //     },
+      //     te: {
+      //       type: Number,
+      //       required: true
+      //     },
+      //     dst: {
+      //       type: Number,
+      //       required: true
+      //     },
+      //     k: {
+      //       type: Number,
+      //       required: true
+      //     }
+      //   }
+      // ]
     }
   ]
 });

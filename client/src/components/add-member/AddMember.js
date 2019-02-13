@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
-import PropTypes from 'prop-types';
+import { Link, withRouter } from 'react-router-dom';
 import TextFieldGroup from '../common/TextFieldGroup';
-import { createProfile } from '../../actions/profileActions';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { addMember } from '../../actions/profileActions';
 
-class CreateProfile extends Component {
+class AddMember extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -30,7 +30,7 @@ class CreateProfile extends Component {
   onSubmit(e) {
     e.preventDefault();
 
-    const profileData = {
+    const memberData = {
       handle: this.state.handle,
       seasons: this.state.seasons,
       playoffs: this.state.playoffs,
@@ -38,7 +38,7 @@ class CreateProfile extends Component {
       lastplaces: this.state.lastplaces
     };
 
-    this.props.createProfile(profileData, this.props.history);
+    this.props.addMember(memberData, this.props.history);
   }
 
   onChange(e) {
@@ -49,21 +49,26 @@ class CreateProfile extends Component {
     const { errors } = this.state;
 
     return (
-      <div className="create-profile">
+      <div className="add-member">
         <div className="container">
           <div className="row">
             <div className="col-md-8 m-auto">
-              <h1 className="display-4 text-center">Create Your Profile</h1>
-              <p className="lead text-center">Enter some league information</p>
+              <Link to="/dashboard" className="btn btn-light">
+                Go Back
+              </Link>
+              <h1 className="display-4 text-center">Add League Member</h1>
+              <p className="lead text-center">
+                Enter some information about one of your league members
+              </p>
               <small className="d-block pb-3">* = required field</small>
               <form onSubmit={this.onSubmit}>
                 <TextFieldGroup
-                  placeholder="* Profile Handle"
+                  placeholder="* Member Handle"
                   name="handle"
                   value={this.state.handle}
                   onChange={this.onChange}
                   error={errors.handle}
-                  info="A unique handle for your profile URL."
+                  info="A unique handle for this member."
                 />
                 <TextFieldGroup
                   placeholder="Seasons"
@@ -111,7 +116,8 @@ class CreateProfile extends Component {
   }
 }
 
-CreateProfile.propTypes = {
+AddMember.propTypes = {
+  addMember: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired
 };
@@ -123,5 +129,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { createProfile }
-)(withRouter(CreateProfile));
+  { addMember }
+)(withRouter(AddMember));

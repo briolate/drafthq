@@ -68,7 +68,7 @@ class AddDraft extends Component {
               <Link to="/dashboard" className="btn btn-light">
                 Go Back
               </Link>
-              <h1 className="display-5 text-center">Add Season</h1>
+              <h1 className="display-5 text-center">Add Draft</h1>
               <p className="lead text-center">
                 Add year of season and the round in which you picked each
                 position
