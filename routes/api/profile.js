@@ -248,7 +248,7 @@ router.post(
         handle: req.body.handle,
         seasons: req.body.seasons,
         playoffs: req.body.playoffs,
-        championships: req.body.champioships,
+        championships: req.body.championships,
         lastplaces: req.body.lastplaces,
         drafts: {
           year: req.body.year,

@@ -1,74 +1,79 @@
-// import React, { Component } from 'react';
-// import { connect } from 'react-redux';
-// import PropTypes from 'prop-types';
-// import { getCurrentProfile, deleteMember } from '../../actions/profileActions';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { deleteMember } from '../../actions/profileActions';
 
-// class MemberItems extends Component {
-//   componentDidMount() {
-//     this.props.getCurrentProfile();
-//   }
+class MemberItem extends Component {
+  onDeleteClick(e) {
+    this.props.deleteMember();
+  }
 
-//   onDeleteClick(id) {
-//     this.props.deleteMember(id);
-//   }
+  render() {
+    const { members } = this.props;
 
-//   render() {
-//     const members = this.props.members.map(member => (
-//       <tr key={draft._id}>
-//         <td>{draft.year}</td>
-//         <td>{draft.qb}</td>
-//         <td>{draft.rb1}</td>
-//         <td>{draft.rb2}</td>
-//         <td>{draft.rb3}</td>
-//         <td>{draft.wr1}</td>
-//         <td>{draft.wr2}</td>
-//         <td>{draft.wr3}</td>
-//         <td>{draft.te}</td>
-//         <td>{draft.dst}</td>
-//         <td>{draft.k}</td>
-//         <td>
-//           <button
-//             onClick={this.onDeleteClick.bind(this, member._id)}
-//             className="btn btn-danger"
-//           >
-//             Delete
-//           </button>
-//         </td>
-//       </tr>
-//     ));
+    const memberItems = members.map(member => (
+      <li key={member._id} className="list-group-item">
+        <h4>{member.handle}</h4>
+        <p>
+          {member.seasons === '' ? null : (
+            <span>
+              <strong>Seasons:</strong> {member.seasons}
+            </span>
+          )}
+        </p>
+        <p>
+          {member.playoffs === '' ? null : (
+            <span>
+              <strong>Playoffs:</strong> {member.playoffs}
+            </span>
+          )}
+        </p>
+        <p>
+          {member.playoffs === '' ? null : (
+            <span>
+              <strong>Championships:</strong> {member.championships}
+            </span>
+          )}
+        </p>
+        <p>
+          {member.playoffs === '' ? null : (
+            <span>
+              <strong>Last Places:</strong> {member.lastplaces}
+            </span>
+          )}
+        </p>
+        <button
+          onClick={this.onDeleteClick.bind(this)}
+          className="btn btn-danger"
+        >
+          Delete Member
+        </button>
+      </li>
+    ));
 
-//     return (
-//       <div>
-//         <h4 className="mb-4">Members</h4>
-//         <table className="table">
-//           <thead>
-//             <tr>
-//               <th>Year</th>
-//               <th>QB</th>
-//               <th>RB1</th>
-//               <th>RB2</th>
-//               <th>RB3</th>
-//               <th>WR1</th>
-//               <th>WR2</th>
-//               <th>WR3</th>
-//               <th>TE</th>
-//               <th>DS/T</th>
-//               <th>K</th>
-//             </tr>
-//             {members}
-//           </thead>
-//         </table>
-//       </div>
-//     );
-//   }
-// }
+    return (
+      <div className="card card-body bg-light mb-3">
+        <div className="row">
+          <div className="col-md-6 mt-2">
+            {memberItems.length > 0 ? (
+              <ul className="list-group">{memberItems}</ul>
+            ) : (
+              <p className="text-center">
+                You haven't added any league members
+              </p>
+            )}
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
 
-// Members.propTypes = {
-//   deleteMember: PropTypes.func.isRequired,
-//   getCurrentProfile: PropTypes.func.isRequired
-// };
+MemberItem.propTypes = {
+  deleteMember: PropTypes.func.isRequired
+};
 
-// export default connect(
-//   null,
-//   { getCurrentProfile, deleteMember }
-// )(MemberItems);
+export default connect(
+  null,
+  { deleteMember }
+)(MemberItem);

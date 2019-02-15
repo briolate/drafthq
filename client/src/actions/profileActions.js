@@ -76,7 +76,7 @@ export const deleteDraft = id => dispatch => {
 export const addMember = (memberData, history) => dispatch => {
   axios
     .post('/api/profile/members', memberData)
-    .then(res => history.push('/dashboard'))
+    .then(res => history.push('/members'))
     .catch(err =>
       dispatch({
         type: GET_ERRORS,
